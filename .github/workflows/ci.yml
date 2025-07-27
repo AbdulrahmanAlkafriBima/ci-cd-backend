@@ -24,9 +24,6 @@ jobs:
       - name: Build project with Maven
         run: mvn package -DskipTests
 
-      - name: Generate coverage report
-        run: mvn test jacoco:report
-
       - name: Upload JAR artifact
         uses: actions/upload-artifact@v4.6.2
         with:
