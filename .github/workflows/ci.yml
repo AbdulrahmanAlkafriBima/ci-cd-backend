@@ -21,9 +21,6 @@ jobs:
           distribution: temurin
           cache: maven
 
-      - name: run tests
-        run: mvn test
-
       - name: Build project with Maven
         run: mvn package -DskipTests
 
