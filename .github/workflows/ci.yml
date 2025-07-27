@@ -1,0 +1,38 @@
+name: Backend Spring CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  applicaiton_testing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4.2.2
+
+      - name: setup Java
+        uses: actions/setup-java@v3.14.1
+        with:
+          java-version: 17
+          distribution: temurin
+          cache: maven
+
+      - name: run tests
+        run: mvn test
+
+      - name: Build project with Maven
+        run: mvn package -DskipTests
+
+      - name: Generate coverage report
+        run: mvn test jacoco:report
+
+      - name: Upload JAR artifact
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: builded project
+          path: target/*.jar
+        
